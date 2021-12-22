@@ -22,8 +22,8 @@ export const SummaryItem = styled.article`
   }
 
   &.highlight-bg {
-    background-color: #33cc95;
-    color: #fff;
+    background-color: var(--green);
+    color: var(--white);
   }
 `
 
