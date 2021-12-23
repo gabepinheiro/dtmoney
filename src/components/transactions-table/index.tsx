@@ -1,6 +1,14 @@
+import {useEffect} from 'react'
+
 import * as S from './styles'
 
 export const TransactionsTable = () => {
+  useEffect(() => {
+    fetch('http://localhost:3000/api/transactions')
+      .then(r => r.json())
+      .then(data => console.log(data))
+  }, [])
+
   return (
     <S.Wrapper>
       <thead>
