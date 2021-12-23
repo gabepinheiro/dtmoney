@@ -15,6 +15,8 @@ export const NewTransactionModal = ({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
+      overlayClassName="react-modal-overlay"
+      className="react-modal-content"
     >
       <h2>Cadastrar transação</h2>
     </Modal >
