@@ -1,10 +1,19 @@
 import styled from 'styled-components'
 
+import {darken} from 'polished'
+
 export const Form = styled.form``
 
 export const HeadingForm = styled.h2`
   font-size: 2.4rem;
   margin-bottom: 3.2rem;
+`
+
+export const InputsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
 `
 
 export const Input = styled.input`
@@ -21,9 +30,47 @@ export const Input = styled.input`
     color: var(--text-body);
   }
 
-  &:not(:last-of-type) {
-    margin-bottom: 1.6rem;
+`
+
+export const TransactionTypes = styled.div`
+  display: flex;
+  gap: 1.6rem;
+
+  & > * {
+    flex: 1;
   }
+`
+
+export const Type = styled.button`
+  border-radius: 4px;
+  border: 1px solid #d7d7d7;
+  background: transparent;
+
+  padding: 0 2.4rem;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+
+  height: 6.4rem;
+
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: ${darken(0.1, '#d7d7d7')}
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  span {
+    font-size: 1.6rem;
+    color: var(--text-title);
+  }
+
 `
 
 export const ButtonSubmit = styled.button`
