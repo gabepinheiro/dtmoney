@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import {darken} from 'polished'
+import {darken, transparentize} from 'polished'
 
 export const Form = styled.form``
 
@@ -41,10 +41,21 @@ export const TransactionTypes = styled.div`
   }
 `
 
-export const Type = styled.button`
+type ButtonTypeProps = {
+  isActive: boolean
+  activeColor: 'green' | 'red'
+}
+
+const colors = {
+  green: '#33cc95',
+  red: '#e52e4d'
+}
+
+export const ButtonType = styled.button<ButtonTypeProps>`
   border-radius: 4px;
   border: 1px solid #d7d7d7;
-  background: transparent;
+  background: ${({isActive, activeColor}) =>
+    isActive ? transparentize(0.9, colors[activeColor]) : 'transparent'};
 
   padding: 0 2.4rem;
  

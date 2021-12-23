@@ -1,3 +1,5 @@
+import {useState, useEffect} from 'react'
+
 import Modal from 'react-modal'
 
 import * as S from './styles'
@@ -17,10 +19,17 @@ export const NewTransactionModal = ({
   isOpen,
   onRequestClose
 }: NewTransactionModalProps) => {
+  const [type, setType] = useState('')
+
+  const closeModal = () => {
+    onRequestClose()
+    setType('')
+  }
+
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onRequestClose}
+      onRequestClose={closeModal}
       overlayClassName="react-modal-overlay"
       className="react-modal-content"
     >
@@ -28,7 +37,7 @@ export const NewTransactionModal = ({
         type="button"
         title="Fechar Modal"
         className="react-modal-close"
-        onClick={onRequestClose}
+        onClick={closeModal}
       >
         <img src={closeImg} alt="Ícone de um X" />
       </button>
@@ -42,15 +51,27 @@ export const NewTransactionModal = ({
           <S.Input placeholder="Valor" />
 
           <S.TransactionTypes>
-            <S.Type title="Entrada">
+            <S.ButtonType
+              type="button"
+              title="Entrada"
+              onClick={() => setType('deposit')}
+              isActive={type === 'deposit'}
+              activeColor="green"
+            >
               <img src={incomeImg} alt="Entrada" />
               <span>Entrada</span>
-            </S.Type>
+            </S.ButtonType>
 
-            <S.Type title="Saída">
+            <S.ButtonType
+              type="button"
+              title="Saída"
+              onClick={() => setType('withdraw')}
+              isActive={type === 'withdraw'}
+              activeColor="red"
+            >
               <img src={outcomeImg} alt="Saída" />
               <span>Saída</span>
-            </S.Type>
+            </S.ButtonType>
           </S.TransactionTypes>
 
           <S.Input placeholder="Categoria" />
