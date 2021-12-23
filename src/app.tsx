@@ -2,9 +2,8 @@ import {useState} from 'react'
 
 import {Dashboard} from 'components/dashboard'
 import {Header} from 'components/header'
+import {NewTransactionModal} from 'components/newtransaction-modal'
 import {GlobalStyle} from 'styles/global'
-
-import Modal from 'react-modal'
 
 import {createServer} from 'miragejs'
 
@@ -26,7 +25,6 @@ createServer({
   }
 })
 
-Modal.setAppElement('[data-js=root]')
 
 export const App = () => {
   const [
@@ -44,12 +42,10 @@ export const App = () => {
       <Header onNewTransactionModalOpen={handleToggleNewTransactionModal} />
       <Dashboard />
 
-      <Modal
+      <NewTransactionModal
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleToggleNewTransactionModal}
-      >
-        <h2>Cadastrar transação</h2>
-      </Modal>
+      />
     </>
   )
 }
