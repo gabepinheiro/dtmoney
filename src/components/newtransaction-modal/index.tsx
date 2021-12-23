@@ -7,6 +7,7 @@ import * as S from './styles'
 import incomeImg from 'assets/income.svg'
 import outcomeImg from 'assets/outcome.svg'
 import closeImg from 'assets/close.svg'
+import {api} from 'services/api'
 
 export type NewTransactionModalProps = {
   isOpen: boolean
@@ -55,7 +56,7 @@ export const NewTransactionModal = ({
       type
     }
 
-    console.dir(transaction)
+    api.post('/transactions', transaction)
   }
 
   return (
