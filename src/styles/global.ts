@@ -88,4 +88,18 @@ export const GlobalStyle = createGlobalStyle`
         
     position: relative;
   }
+
+  .react-modal-close {
+    position: absolute;
+    top: 2.4rem;
+    right: 2.4rem;
+    border:0;
+    background: transparent;
+
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
 `
