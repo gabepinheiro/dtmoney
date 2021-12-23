@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, FormEvent} from 'react'
 
 import Modal from 'react-modal'
 
@@ -26,6 +26,38 @@ export const NewTransactionModal = ({
     setType('')
   }
 
+  const getFormElement = (target: HTMLFormElement) =>
+    (element: string): HTMLInputElement =>
+      target[element]
+
+  type Transaction = {
+    title: string
+    value: number
+    category: string
+    type: string
+  }
+
+  const handleCreateNewTransaction = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const target = e.target as HTMLFormElement
+
+    if (!target) {
+      return
+    }
+
+    const getElement = getFormElement(target)
+
+    const transaction: Transaction = {
+      title: getElement('title').value,
+      value: Number(getElement('value').value),
+      category: getElement('category').value,
+      type
+    }
+
+    console.dir(transaction)
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -42,13 +74,13 @@ export const NewTransactionModal = ({
         <img src={closeImg} alt="Ícone de um X" />
       </button>
 
-      <S.Form>
+      <S.Form onSubmit={handleCreateNewTransaction}>
         <S.HeadingForm>Cadastrar transação</S.HeadingForm>
 
         <S.InputsWrapper>
-          <S.Input placeholder="Título" />
+          <S.Input id="title" name="title" placeholder="Título" />
 
-          <S.Input placeholder="Valor" />
+          <S.Input id="value" name="value" placeholder="Valor" />
 
           <S.TransactionTypes>
             <S.ButtonType
@@ -74,7 +106,7 @@ export const NewTransactionModal = ({
             </S.ButtonType>
           </S.TransactionTypes>
 
-          <S.Input placeholder="Categoria" />
+          <S.Input id="category" name="category" placeholder="Categoria" />
         </S.InputsWrapper>
 
         <S.ButtonSubmit
