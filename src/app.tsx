@@ -1,6 +1,10 @@
+import {useState} from 'react'
+
 import {Dashboard} from 'components/dashboard'
 import {Header} from 'components/header'
 import {GlobalStyle} from 'styles/global'
+
+import Modal from 'react-modal'
 
 import {createServer} from 'miragejs'
 
@@ -22,13 +26,33 @@ createServer({
   }
 })
 
-export const App = () => (
-  <>
-    <GlobalStyle />
-    <Header />
-    <Dashboard />
-  </>
-);
+Modal.setAppElement('[data-js=root]')
+
+export const App = () => {
+  const [
+    isNewTransactionModalOpen,
+    setIsNewTransactionModalOpen
+  ] = useState(false)
+
+  const handleToggleNewTransactionModal = () => {
+    setIsNewTransactionModalOpen(state => !state)
+  }
+
+  return (
+    <>
+      <GlobalStyle />
+      <Header onNewTransactionModalOpen={handleToggleNewTransactionModal} />
+      <Dashboard />
+
+      <Modal
+        isOpen={isNewTransactionModalOpen}
+        onRequestClose={handleToggleNewTransactionModal}
+      >
+        <h2>Cadastrar transação</h2>
+      </Modal>
+    </>
+  )
+}
 
 
 
