@@ -52,7 +52,9 @@ export const NewTransactionModal = ({
       type,
     }
 
-    createTransaction(transaction)
+    await createTransaction(transaction)
+
+    closeModal()
   }
 
   return (

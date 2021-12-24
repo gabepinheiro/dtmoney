@@ -4,7 +4,7 @@ import {api} from 'services/api'
 
 type TransactionsContextProps = {
   transactions: Transaction[]
-  createTransaction: (data: TransactionInput) => void
+  createTransaction: (data: TransactionInput) => Promise<void>
 }
 
 const TransactionsContext = createContext<TransactionsContextProps>(
@@ -38,7 +38,14 @@ export const TransactionsProvider = ({children}: TransactionsProviderProps) => {
   }, [])
 
   const createTransaction = async (data: TransactionInput) => {
-    api.post('/transactions', data)
+    const response = await api.post('/transactions', {
+      ...data,
+      createdAt: new Date()
+    })
+
+    const {transaction} = response.data
+
+    setTransactions(state => state.concat(transaction))
   }
 
   return (
