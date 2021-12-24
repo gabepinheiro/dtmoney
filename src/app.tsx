@@ -3,7 +3,10 @@ import {useState} from 'react'
 import {Dashboard} from 'components/dashboard'
 import {Header} from 'components/header'
 import {NewTransactionModal} from 'components/newtransaction-modal'
+
 import {GlobalStyle} from 'styles/global'
+
+import {TransactionsProvider} from 'contexts/transactions-context'
 
 import {createServer, Model} from 'miragejs'
 
@@ -62,7 +65,7 @@ export const App = () => {
   }
 
   return (
-    <>
+    <TransactionsProvider>
       <GlobalStyle />
       <Header onNewTransactionModalOpen={handleToggleNewTransactionModal} />
       <Dashboard />
@@ -71,7 +74,7 @@ export const App = () => {
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleToggleNewTransactionModal}
       />
-    </>
+    </TransactionsProvider>
   )
 }
 
