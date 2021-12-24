@@ -1,6 +1,6 @@
 import {useState, FormEvent} from 'react'
 import Modal from 'react-modal'
-import {TransactionInput} from 'contexts/transactions-context'
+import {TransactionInput, useTransactions} from 'contexts/transactions-context'
 
 import {api} from 'services/api'
 
@@ -23,6 +23,8 @@ export const NewTransactionModal = ({
 }: NewTransactionModalProps) => {
   const [type, setType] = useState('')
 
+  const {createTransaction} = useTransactions()
+
   const closeModal = () => {
     onRequestClose()
     setType('')
@@ -32,7 +34,7 @@ export const NewTransactionModal = ({
     (element: string): HTMLInputElement =>
       target[element]
 
-  const handleCreateNewTransaction = (e: FormEvent<HTMLFormElement>) => {
+  const handleCreateNewTransaction = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const target = e.target as HTMLFormElement
@@ -50,7 +52,7 @@ export const NewTransactionModal = ({
       type,
     }
 
-    api.post('/transactions', transaction)
+    createTransaction(transaction)
   }
 
   return (

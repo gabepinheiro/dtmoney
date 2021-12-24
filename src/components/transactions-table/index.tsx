@@ -3,7 +3,7 @@ import {useTransactions} from 'contexts/transactions-context'
 import * as S from './styles'
 
 export const TransactionsTable = () => {
-  const transactions = useTransactions()
+  const {transactions} = useTransactions()
 
   return (
     <S.Wrapper>

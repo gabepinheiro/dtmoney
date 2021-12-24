@@ -2,7 +2,14 @@ import {useState, useEffect, createContext, ReactNode, useContext} from 'react'
 
 import {api} from 'services/api'
 
-const TransactionsContext = createContext<Transaction[]>([])
+type TransactionsContextProps = {
+  transactions: Transaction[]
+  createTransaction: (data: TransactionInput) => void
+}
+
+const TransactionsContext = createContext<TransactionsContextProps>(
+  {} as TransactionsContextProps
+)
 
 type TransactionsProviderProps = {
   children: ReactNode
@@ -30,8 +37,12 @@ export const TransactionsProvider = ({children}: TransactionsProviderProps) => {
 
   }, [])
 
+  const createTransaction = async (data: TransactionInput) => {
+    api.post('/transactions', data)
+  }
+
   return (
-    <TransactionsContext.Provider value={transactions}>
+    <TransactionsContext.Provider value={{transactions, createTransaction}}>
       {children}
     </TransactionsContext.Provider>
   )
