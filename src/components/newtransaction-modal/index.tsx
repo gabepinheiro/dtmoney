@@ -1,26 +1,18 @@
-import {useState, useEffect, FormEvent} from 'react'
-
+import {useState, FormEvent} from 'react'
 import Modal from 'react-modal'
+import {TransactionInput} from 'contexts/transactions-context'
 
-import * as S from './styles'
+import {api} from 'services/api'
 
 import incomeImg from 'assets/income.svg'
 import outcomeImg from 'assets/outcome.svg'
 import closeImg from 'assets/close.svg'
-import {api} from 'services/api'
+
+import * as S from './styles'
 
 export type NewTransactionModalProps = {
   isOpen: boolean
   onRequestClose: () => void
-}
-
-export type Transaction = {
-  id: number
-  title: string
-  amount: number
-  category: string
-  type: string
-  createdAt: string
 }
 
 Modal.setAppElement('[data-js=root]')
@@ -51,13 +43,11 @@ export const NewTransactionModal = ({
 
     const getElement = getFormElement(target)
 
-    const transaction: Transaction = {
-      id: Math.floor(Math.random() * 200),
+    const transaction: TransactionInput = {
       title: getElement('title').value,
       amount: Number(getElement('value').value),
       category: getElement('category').value,
       type,
-      createdAt: new Date().toString()
     }
 
     api.post('/transactions', transaction)
